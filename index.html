@@ -39,31 +39,28 @@ button{
   box-shadow:0 8px 20px rgba(0,0,0,.3);
 }
 
-button:active{transform:scale(.95)}
-
 .floating{animation:float 3s ease-in-out infinite}
 @keyframes float{
   0%,100%{transform:translateY(0)}
   50%{transform:translateY(-15px)}
 }
 
-/* Stylish birthday text */
-.bday-text{
+/* Text styles */
+.title{
   font-family:'Pacifico',cursive;
-  font-size:42px;
-  margin-top:10px;
-  animation:glow 2s infinite alternate, pop 1s ease;
+  font-size:44px;
+  animation:glow 2s infinite alternate, slide 1s ease;
 }
 @keyframes glow{
   from{text-shadow:0 0 10px #fff}
-  to{text-shadow:0 0 25px #ffb3ff,0 0 40px #ff6ec7}
+  to{text-shadow:0 0 30px #ffb3ff,0 0 45px #ff6ec7}
 }
-@keyframes pop{
-  0%{transform:scale(.5)}
-  100%{transform:scale(1)}
+@keyframes slide{
+  from{opacity:0;transform:translateY(-30px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
-/* Bigger photo */
+/* Photo */
 .main-photo{
   width:300px;
   max-width:90%;
@@ -78,19 +75,24 @@ button:active{transform:scale(.95)}
   100%{transform:scale(1)}
 }
 
-.album{
-  margin:20px 0;
-  padding:20px;
-  border-radius:20px;
-  background:rgba(255,255,255,0.25);
+/* Cute floating emojis */
+.cute{
+  position:fixed;
+  font-size:28px;
+  animation:floatCute 6s linear forwards;
+}
+@keyframes floatCute{
+  0%{bottom:-10%;opacity:0}
+  20%{opacity:1}
+  100%{bottom:110%;opacity:0}
 }
 
-/* Ribbon animation */
-.ribbon{
+/* Celebration */
+.celebrate{
   position:fixed;
   top:-10%;
-  font-size:26px;
-  animation:fall 3s linear forwards;
+  font-size:24px;
+  animation:fall 4s linear forwards;
 }
 @keyframes fall{
   to{top:110%}
@@ -121,14 +123,14 @@ button:active{transform:scale(.95)}
 
 <!-- PAGE 1 -->
 <div class="page active" id="p1">
-  <h1 class="floating">🐼 Hey Keeku 🐼</h1>
-  <p style="margin-top:15px">A cute surprise is waiting for you 💖</p>
+  <h1 class="title">🐼 Hey Keeku 🐶</h1>
+  <p style="margin-top:15px">Something super cute is waiting for you 💖</p>
   <button onclick="startSurprise()">✨ Click for Surprise ✨</button>
 </div>
 
 <!-- PAGE 2 -->
 <div class="page" id="p2">
-  <h1 class="bday-text">Happy Birthday Keeku 🎂</h1>
+  <h1 class="title">Happy Birthday Keeku 🎂</h1>
 
   <img src="assets/keeku.jpeg" class="main-photo">
 
@@ -143,11 +145,7 @@ button:active{transform:scale(.95)}
 
 <!-- PAGE 3 -->
 <div class="page" id="p3">
-  <h1 class="bday-text">Recap Buddie Panda’s Memories 🐼</h1>
-
-  <div class="album">🐼 Buddie Panda</div>
-  <div class="album">✨ Spark × Panda</div>
-  <div class="album">🕵️ Spark the Spy</div>
+  <h1 class="title">Recap Buddie Panda’s Memories 🐼</h1>
 </div>
 
 <!-- AUDIO -->
@@ -169,21 +167,31 @@ function go(n){
 
 function startSurprise(){
   go(2);
-  blastRibbons();
+  blastCelebrate();
   document.getElementById('music').play().catch(()=>{});
 }
 
-function blastRibbons(){
-  for(let i=0;i<30;i++){
-    let r=document.createElement('div');
-    r.className='ribbon';
-    r.innerText='🎀';
-    r.style.left=Math.random()*100+'vw';
-    r.style.animationDuration=(2+Math.random()*2)+'s';
-    document.body.appendChild(r);
-    setTimeout(()=>r.remove(),4000);
-  }
+/* Continuous celebration */
+function blastCelebrate(){
+  setInterval(()=>{
+    let c=document.createElement('div');
+    c.className='celebrate';
+    c.innerText=['🎀','🎉','✨','💖'][Math.floor(Math.random()*4)];
+    c.style.left=Math.random()*100+'vw';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
+  },300);
 }
+
+/* Cute pandas & puppies */
+setInterval(()=>{
+  let e=document.createElement('div');
+  e.className='cute';
+  e.innerText=['🐼','🐶','💗','⭐'][Math.floor(Math.random()*4)];
+  e.style.left=Math.random()*100+'vw';
+  document.body.appendChild(e);
+  setTimeout(()=>e.remove(),6000);
+},2000);
 
 function toggleMusic(){
   const m=document.getElementById('music');
