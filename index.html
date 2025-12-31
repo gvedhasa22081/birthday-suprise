@@ -6,10 +6,16 @@
 <title>Happy Birthday Keeku 🐼</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Arial,sans-serif}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
 body{
   min-height:100vh;
   color:#fff;
+  text-align:center;
   background:linear-gradient(270deg,#ff4ecd,#7cffcb,#6a5cff,#ffd56b);
   background-size:600% 600%;
   animation:bg 4s infinite alternate;
@@ -18,24 +24,35 @@ body{
   0%{background-position:0% 50%}
   100%{background-position:100% 50%}
 }
-.page{display:none;min-height:100vh;padding:25px;text-align:center}
-.page.active{display:block}
-.btn{
+.page{
+  display:none;
+  min-height:100vh;
+  padding:25px;
+}
+.page.active{
+  display:block;
+}
+button{
   margin-top:30px;
   padding:15px 30px;
+  font-size:18px;
   border-radius:40px;
   border:2px solid #fff;
   background:rgba(255,255,255,0.25);
   color:#fff;
-  font-size:18px;
 }
-.floating{animation:float 3s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-.main-photo{
+.floating{
+  animation:float 3s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-15px)}
+}
+img{
   width:240px;
   border-radius:25px;
-  box-shadow:0 0 25px rgba(255,255,255,0.9);
   margin:25px auto;
+  box-shadow:0 0 25px rgba(255,255,255,0.9);
 }
 .album{
   margin:20px 0;
@@ -47,15 +64,14 @@ body{
   position:fixed;
   top:10px;
   right:10px;
-  z-index:999;
 }
 .controls button{
-  background:rgba(0,0,0,0.4);
-  border:none;
-  color:#fff;
   padding:10px;
   border-radius:50%;
+  background:rgba(0,0,0,0.4);
+  border:none;
   margin-left:5px;
+  color:#fff;
 }
 </style>
 </head>
@@ -70,15 +86,15 @@ body{
 <!-- PAGE 1 -->
 <div class="page active" id="p1">
   <h1 class="floating">🐼 Hey Keeku 🐼</h1>
-  <p style="margin-top:15px">Something cute is waiting for you 💖</p>
-  <button class="btn" onclick="go(2)">✨ Click for Surprise ✨</button>
+  <p style="margin-top:15px">A small surprise is waiting for you 💖</p>
+  <button onclick="go(2)">✨ Click for Surprise ✨</button>
 </div>
 
 <!-- PAGE 2 -->
 <div class="page" id="p2">
   <h1 class="floating">🎂 Happy Birthday Keeku 🎂</h1>
 
-  <img src="assets/img/keeku.jpeg" class="main-photo floating" alt="Keeku">
+  <img src="assets/keeku.jpeg" alt="Keeku" class="floating">
 
   <p>
     Stay happy 🌸<br>
@@ -86,7 +102,7 @@ body{
     You make days brighter 🐼
   </p>
 
-  <button class="btn" onclick="go(3)">🐼 Click to See About Pandas 🐼</button>
+  <button onclick="go(3)">🐼 Click to See About Pandas 🐼</button>
 </div>
 
 <!-- PAGE 3 -->
@@ -100,24 +116,24 @@ body{
 
 <!-- AUDIO -->
 <audio id="music" loop playsinline>
-  <source src="assets/audio/birthday.mp3" type="audio/mpeg">
+  <source src="assets/birthday.mp3" type="audio/mpeg">
 </audio>
 
 <audio id="puppy" playsinline>
-  <source src="assets/audio/keeku.mp3.m4a" type="audio/mp4">
+  <source src="assets/keeku.m4a" type="audio/mp4">
 </audio>
 
 <script>
-let musicOn=true;
-let puppyOn=true;
+let musicOn = true;
+let puppyOn = true;
 
 function go(n){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('p'+n).classList.add('active');
 
-  const music=document.getElementById('music');
-  music.currentTime=0;
-  music.play().catch(()=>{});
+  const m = document.getElementById('music');
+  m.currentTime = 0;
+  m.play().catch(()=>{});
 }
 
 function toggleMusic(){
