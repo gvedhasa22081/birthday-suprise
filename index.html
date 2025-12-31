@@ -1,1 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday Keeku 🐼</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Comic Sans MS", "Poppins", sans-serif;
+}
+
+body {
+  height: 100vh;
+  overflow-x: hidden;
+  background: linear-gradient(270deg, #ff4ecd, #7cffcb, #6a5cff);
+  background-size: 600% 600%;
+  animation: bgMove 3s ease infinite;
+  color: white;
+}
+
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.page {
+  display: none;
+  min-height: 100vh;
+  padding: 20px;
+  text-align: center;
+}
+
+.page.active {
+  display: block;
+}
+
+.btn {
+  background: rgba(255,255,255,0.2);
+  border: 2px solid white;
+  padding: 15px 25px;
+  border-radius: 50px;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  margin-top: 30px;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  background: rgba(255,255,255,0.35);
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.heart {
+  position: fixed;
+  font-size: 22px;
+  animation: fall 6s linear infinite;
+}
+
+@keyframes fall {
+  0% { top: -10%; opacity: 1; }
+  100% { top: 110%; opacity: 0; }
+}
+
+img.main-photo {
+  width: 220px;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(255,255,255,0.8);
+  margin: 20px auto;
+}
+
+.album {
+  background: rgba(255,255,255,0.2);
+  padding: 20px;
+  border-radius: 20px;
+  margin: 15px 0;
+}
+
+.album h3 {
+  font-size: 22px;
+}
+
+.controls {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 999;
+}
+
+.controls button {
+  background: rgba(0,0,0,0.4);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SOUND CONTROLS -->
+<div class="controls">
+  <button onclick="toggleMusic()">🎵</button>
+  <button onclick="togglePuppy()">🐶</button>
+</div>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+  <h1 class="floating">🐼 A Small Surprise 🐼</h1>
+  <p style="margin-top:20px;">Something cute is waiting for you 💖</p>
+  <button class="btn" onclick="goToPage(2)">✨ Click for Surprise ✨</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+  <h1 class="floating">🎂 Happy Birthday Keeku 🎂</h1>
+
+  <img src="assets/img/keeku.jpg" class="main-photo floating" />
+
+  <p style="margin-top:15px;">
+    Stay happy 🌸  
+    Keep smiling 💕  
+    You make days brighter 🐼
+  </p>
+
+  <button class="btn" onclick="goToPage(3)">🐼 Click to See About Pandas 🐼</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+  <h1 class="floating">🐼 Recap Buddie Panda’s Memories 🐼</h1>
+
+  <div class="album">
+    <h3>🐼 Buddie Panda</h3>
+    <p>(Photos will be added)</p>
+  </div>
+
+  <div class="album">
+    <h3>✨ Spark × Panda</h3>
+    <p>(Photos will be added)</p>
+  </div>
+
+  <div class="album">
+    <h3>🕵️ Spark the Spy</h3>
+    <p>(Photos will be added)</p>
+  </div>
+</div>
+
+<!-- AUDIO -->
+<audio id="bgMusic" loop>
+  <source src="assets/audio/birthday.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="puppySound">
+  <source src="assets/audio/keeku.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+let musicOn = true;
+let puppyOn = true;
+
+function goToPage(n) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById("page" + n).classList.add("active");
+  document.getElementById("bgMusic").play();
+}
+
+function toggleMusic() {
+  const m = document.getElementById("bgMusic");
+  musicOn = !musicOn;
+  musicOn ? m.play() : m.pause();
+}
+
+function togglePuppy() {
+  puppyOn = !puppyOn;
+}
+
+setInterval(() => {
+  if (puppyOn) {
+    document.getElementById("puppySound").play();
+  }
+}, 5000);
+
+// hearts
+for (let i = 0; i < 15; i++) {
+  let h = document.createElement("div");
+  h.className = "heart";
+  h.innerText = "💖";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.animationDelay = Math.random() * 5 + "s";
+  document.body.appendChild(h);
+}
+</script>
+
+</body>
+</html>
 
