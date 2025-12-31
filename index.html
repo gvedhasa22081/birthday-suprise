@@ -29,7 +29,7 @@ body{
 
 button{
   margin-top:30px;
-  padding:16px 34px;
+  padding:16px 36px;
   font-size:18px;
   border-radius:50px;
   border:none;
@@ -38,6 +38,7 @@ button{
   font-weight:600;
   box-shadow:0 8px 20px rgba(0,0,0,.3);
 }
+button:active{transform:scale(.95)}
 
 .title{
   font-family:'Pacifico',cursive;
@@ -53,7 +54,7 @@ button{
   to{opacity:1;transform:translateY(0)}
 }
 
-/* PHOTO + PANDA WRAPPER */
+/* PHOTO + PANDA */
 .photo-wrap{
   position:relative;
   display:inline-block;
@@ -61,29 +62,56 @@ button{
 }
 
 .main-photo{
-  width:300px;
+  width:320px;
   max-width:90%;
   border-radius:30px;
   box-shadow:0 0 35px rgba(255,255,255,.9);
 }
 
-/* PANDA */
+/* PANDA HUGGING ANIMATION */
 .panda{
   position:absolute;
-  width:120px;
+  width:140px;
   left:50%;
   transform:translateX(-50%);
-  bottom:-120px;
-  animation:pandaClimb 8s infinite;
+  bottom:-180px;
+  z-index:5;
+  animation:pandaHug 8s infinite;
 }
 
-@keyframes pandaClimb{
-  0%{bottom:-140px;opacity:0}
-  20%{opacity:1}
-  40%{bottom:40px}
-  60%{bottom:40px}
-  80%{bottom:-140px;opacity:1}
-  100%{opacity:0}
+@keyframes pandaHug{
+  0%{
+    bottom:-180px;
+    opacity:0;
+    transform:translateX(-50%) scale(0.9);
+  }
+  20%{
+    opacity:1;
+  }
+  40%{
+    bottom:140px;
+    transform:translateX(-50%) scale(1.05);
+  }
+  55%{
+    bottom:140px;
+    transform:translateX(-50%) scale(1.1) rotate(-2deg);
+  }
+  65%{
+    bottom:140px;
+    transform:translateX(-50%) scale(1.1) rotate(2deg);
+  }
+  75%{
+    bottom:140px;
+    transform:translateX(-50%) scale(1.05);
+  }
+  90%{
+    bottom:-180px;
+    opacity:1;
+    transform:translateX(-50%) scale(0.9);
+  }
+  100%{
+    opacity:0;
+  }
 }
 
 .controls{
@@ -112,7 +140,7 @@ button{
 <!-- PAGE 1 -->
 <div class="page active" id="p1">
   <h1 class="title">🐼 Hey Keeku 🐶</h1>
-  <p style="margin-top:15px">Something super cute is waiting for you 💖</p>
+  <p style="margin-top:15px">A super cute surprise is waiting for you 💖</p>
   <button onclick="startSurprise()">✨ Click for Surprise ✨</button>
 </div>
 
