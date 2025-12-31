@@ -39,13 +39,6 @@ button{
   box-shadow:0 8px 20px rgba(0,0,0,.3);
 }
 
-.floating{animation:float 3s ease-in-out infinite}
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-15px)}
-}
-
-/* Text styles */
 .title{
   font-family:'Pacifico',cursive;
   font-size:44px;
@@ -60,42 +53,37 @@ button{
   to{opacity:1;transform:translateY(0)}
 }
 
-/* Photo */
+/* PHOTO + PANDA WRAPPER */
+.photo-wrap{
+  position:relative;
+  display:inline-block;
+  margin-top:30px;
+}
+
 .main-photo{
   width:300px;
   max-width:90%;
   border-radius:30px;
-  margin:30px auto;
   box-shadow:0 0 35px rgba(255,255,255,.9);
-  animation:pulse 3s infinite;
-}
-@keyframes pulse{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.05)}
-  100%{transform:scale(1)}
 }
 
-/* Cute floating emojis */
-.cute{
-  position:fixed;
-  font-size:28px;
-  animation:floatCute 6s linear forwards;
+/* PANDA */
+.panda{
+  position:absolute;
+  width:120px;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:-120px;
+  animation:pandaClimb 8s infinite;
 }
-@keyframes floatCute{
-  0%{bottom:-10%;opacity:0}
+
+@keyframes pandaClimb{
+  0%{bottom:-140px;opacity:0}
   20%{opacity:1}
-  100%{bottom:110%;opacity:0}
-}
-
-/* Celebration */
-.celebrate{
-  position:fixed;
-  top:-10%;
-  font-size:24px;
-  animation:fall 4s linear forwards;
-}
-@keyframes fall{
-  to{top:110%}
+  40%{bottom:40px}
+  60%{bottom:40px}
+  80%{bottom:-140px;opacity:1}
+  100%{opacity:0}
 }
 
 .controls{
@@ -132,20 +120,16 @@ button{
 <div class="page" id="p2">
   <h1 class="title">Happy Birthday Keeku 🎂</h1>
 
-  <img src="assets/keeku.jpeg" class="main-photo">
+  <div class="photo-wrap">
+    <img src="assets/keeku.jpeg" class="main-photo">
+    <img src="assets/panda.png" class="panda">
+  </div>
 
-  <p>
+  <p style="margin-top:20px">
     Stay happy 🌸<br>
     Keep smiling 💕<br>
     You make days brighter 🐼
   </p>
-
-  <button onclick="go(3)">🐼 Click to See About Pandas 🐼</button>
-</div>
-
-<!-- PAGE 3 -->
-<div class="page" id="p3">
-  <h1 class="title">Recap Buddie Panda’s Memories 🐼</h1>
 </div>
 
 <!-- AUDIO -->
@@ -160,38 +144,11 @@ button{
 <script>
 let musicOn=true, puppyOn=true;
 
-function go(n){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('p'+n).classList.add('active');
-}
-
 function startSurprise(){
-  go(2);
-  blastCelebrate();
+  document.getElementById('p1').classList.remove('active');
+  document.getElementById('p2').classList.add('active');
   document.getElementById('music').play().catch(()=>{});
 }
-
-/* Continuous celebration */
-function blastCelebrate(){
-  setInterval(()=>{
-    let c=document.createElement('div');
-    c.className='celebrate';
-    c.innerText=['🎀','🎉','✨','💖'][Math.floor(Math.random()*4)];
-    c.style.left=Math.random()*100+'vw';
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),4000);
-  },300);
-}
-
-/* Cute pandas & puppies */
-setInterval(()=>{
-  let e=document.createElement('div');
-  e.className='cute';
-  e.innerText=['🐼','🐶','💗','⭐'][Math.floor(Math.random()*4)];
-  e.style.left=Math.random()*100+'vw';
-  document.body.appendChild(e);
-  setTimeout(()=>e.remove(),6000);
-},2000);
 
 function toggleMusic(){
   const m=document.getElementById('music');
