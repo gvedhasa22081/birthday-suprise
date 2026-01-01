@@ -1,1 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Keeku 💖</title>
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  min-height:100vh;
+  font-family:'Poppins',sans-serif;
+  color:#fff;
+  text-align:center;
+  overflow-x:hidden;
+  background:linear-gradient(270deg,#ff4ecd,#7cffcb,#6a5cff,#ffd56b);
+  background-size:600% 600%;
+  animation:bg 4s infinite alternate;
+}
+@keyframes bg{
+  0%{background-position:0% 50%}
+  100%{background-position:100% 50%}
+}
+
+/* background video */
+.bg-video{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  mix-blend-mode:screen;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* pages */
+.page{
+  display:none;
+  min-height:100vh;
+  padding:25px;
+  position:relative;
+  z-index:1;
+}
+.page.active{display:block}
+
+button{
+  margin-top:25px;
+  padding:16px 34px;
+  font-size:18px;
+  border-radius:50px;
+  border:none;
+  background:linear-gradient(135deg,#ff8bd6,#ffd56b);
+  color:#4b0055;
+  font-weight:600;
+  box-shadow:0 8px 20px rgba(0,0,0,.3);
+}
+button:active{transform:scale(.95)}
+
+.title{
+  font-family:'Pacifico',cursive;
+  font-size:42px;
+  margin-bottom:20px;
+  animation:glow 2s infinite alternate;
+}
+@keyframes glow{
+  from{text-shadow:0 0 10px #fff}
+  to{text-shadow:0 0 30px #ffb3ff,0 0 45px #ff6ec7}
+}
+
+/* photo */
+.main-photo{
+  width:320px;
+  max-width:90%;
+  border-radius:30px;
+  box-shadow:0 0 35px rgba(255,255,255,.9);
+}
+
+/* wishes */
+.wishes{
+  margin-top:25px;
+  font-size:16px;
+  line-height:1.8;
+  animation:fadeUp 1.5s ease;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* album scroll */
+.photo-scroll img{
+  width:100%;
+  max-width:360px;
+  margin:20px auto;
+  display:block;
+  border-radius:20px;
+  box-shadow:0 0 25px rgba(255,255,255,.6);
+  animation:fadeUp 1s ease;
+}
+</style>
+</head>
+
+<body>
+
+<video class="bg-video" autoplay loop muted playsinline>
+  <source src="assets/bg-celebration.mp4" type="video/mp4">
+</video>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+  <h1 class="title">✨ Hey Keeku ✨</h1>
+  <p>A little surprise made just for you 💖</p>
+  <button onclick="showPage('page2')">🎁 Click for Surprise 🎁</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+  <h1 class="title">Happy Birthday Keeku 🎂</h1>
+  <img src="assets/keeku.jpeg" class="main-photo">
+
+  <div class="wishes">
+    “May your smile always stay this bright and your heart always stay this kind 💖”<br>
+    “You make ordinary moments feel special just by being you 🌸”<br>
+    “Stay cute, stay happy, and never stop being <b>my</b> pandaaaaaaaaaaaa… keeeeku 🐼🤍”
+  </div>
+
+  <button onclick="showPage('page3')">🐼 See Our Memories 🐼</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+  <h1 class="title">Recap Buddie Panda’s Memories 🐼</h1>
+
+  <button onclick="openAlbum('bp',8,'Buddie Panda 🐼')">🐼 Buddie Panda</button>
+  <button onclick="openAlbum('sp',4,'Spark × Panda 💞')">💞 Spark × Panda</button>
+  <button onclick="openAlbum('ss',9,'Spark the Spy 🕵️')">🕵️ Spark the Spy</button>
+  <button onclick="openAlbum('kb',7,'Keeku Buddie 🤍')">🤍 Keeku Buddie</button>
+</div>
+
+<!-- ALBUM PAGE -->
+<div class="page" id="albumPage">
+  <h1 class="title" id="albumTitle"></h1>
+  <div class="photo-scroll" id="photoContainer"></div>
+  <button onclick="showPage('page3')">⬅ Back</button>
+</div>
+
+<!-- MUSIC -->
+<audio id="music" loop playsinline>
+  <source src="assets/birthday.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(id==='page2'){
+    document.getElementById('music').play().catch(()=>{});
+  }
+}
+
+function openAlbum(prefix,count,title){
+  showPage('albumPage');
+  albumTitle.innerText = title;
+  photoContainer.innerHTML = '';
+  for(let i=1;i<=count;i++){
+    const img=document.createElement('img');
+    img.src = `assets/${prefix}${i}.jpeg`;
+    photoContainer.appendChild(img);
+  }
+}
+</script>
+
+</body>
+</html>
