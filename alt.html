@@ -16,19 +16,16 @@ body{
   color:#fff;
   text-align:center;
   overflow-x:hidden;
-
-  /* NEON BACKGROUND */
   background:linear-gradient(270deg,#ff4ecd,#7cffcb,#6a5cff,#ffd56b);
   background-size:600% 600%;
   animation:bg 4s infinite alternate;
 }
-
 @keyframes bg{
   0%{background-position:0% 50%}
   100%{background-position:100% 50%}
 }
 
-/* BACKGROUND VIDEOS */
+/* background video */
 .bg-video{
   position:fixed;
   inset:0;
@@ -36,11 +33,11 @@ body{
   height:100%;
   object-fit:cover;
   mix-blend-mode:screen;
-  pointer-events:none;
   z-index:0;
+  pointer-events:none;
 }
 
-/* page */
+/* pages */
 .page{
   display:none;
   min-height:100vh;
@@ -74,7 +71,7 @@ button:active{transform:scale(.95)}
   to{text-shadow:0 0 30px #ffb3ff,0 0 45px #ff6ec7}
 }
 
-/* main photo */
+/* photo */
 .main-photo{
   width:320px;
   max-width:90%;
@@ -94,7 +91,7 @@ button:active{transform:scale(.95)}
   to{opacity:1;transform:translateY(0)}
 }
 
-/* album photos */
+/* album scroll */
 .photo-scroll img{
   width:100%;
   max-width:360px;
@@ -102,27 +99,22 @@ button:active{transform:scale(.95)}
   display:block;
   border-radius:20px;
   box-shadow:0 0 25px rgba(255,255,255,.6);
+  animation:fadeUp 1s ease;
 }
 </style>
 </head>
 
 <body>
 
-<!-- BACKGROUND EFFECT 1 -->
 <video class="bg-video" autoplay loop muted playsinline>
   <source src="assets/bg-celebration.mp4" type="video/mp4">
-</video>
-
-<!-- BACKGROUND EFFECT 2 -->
-<video class="bg-video" autoplay loop muted playsinline>
-  <source src="assets/bg-butterfly.mp4" type="video/mp4">
 </video>
 
 <!-- PAGE 1 -->
 <div class="page active" id="page1">
   <h1 class="title">✨ Hey Keeku ✨</h1>
   <p>A little surprise made just for you 💖</p>
-  <button onclick="goPage('page2')">🎁 Click for Surprise 🎁</button>
+  <button onclick="showPage('page2')">🎁 Click for Surprise 🎁</button>
 </div>
 
 <!-- PAGE 2 -->
@@ -136,7 +128,7 @@ button:active{transform:scale(.95)}
     “Stay cute, stay happy, and never stop being <b>my</b> pandaaaaaaaaaaaa… keeeeku 🐼🤍”
   </div>
 
-  <button onclick="goPage('page3')">🐼 See Our Memories 🐼</button>
+  <button onclick="showPage('page3')">🐼 See Our Memories 🐼</button>
 </div>
 
 <!-- PAGE 3 -->
@@ -153,49 +145,32 @@ button:active{transform:scale(.95)}
 <div class="page" id="albumPage">
   <h1 class="title" id="albumTitle"></h1>
   <div class="photo-scroll" id="photoContainer"></div>
-  <button onclick="goPage('page3')">⬅ Back</button>
+  <button onclick="showPage('page3')">⬅ Back</button>
 </div>
 
-<!-- AUDIO -->
+<!-- MUSIC -->
 <audio id="music" loop playsinline>
   <source src="assets/birthday.mp3" type="audio/mpeg">
 </audio>
 
-<audio id="keekuSound" playsinline>
-  <source src="assets/keeku.m4a" type="audio/mp4">
-</audio>
-
 <script>
-function goPage(id){
+function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-
   if(id==='page2'){
     document.getElementById('music').play().catch(()=>{});
-    startKeekuSound();
   }
 }
 
 function openAlbum(prefix,count,title){
-  goPage('albumPage');
+  showPage('albumPage');
   albumTitle.innerText = title;
-  photoContainer.innerHTML='';
+  photoContainer.innerHTML = '';
   for(let i=1;i<=count;i++){
     const img=document.createElement('img');
-    img.src=`assets/${prefix}${i}.jpeg`;
+    img.src = `assets/${prefix}${i}.jpeg`;
     photoContainer.appendChild(img);
   }
-}
-
-/* KEEEKU SOUND EVERY 5 SECONDS */
-let keekuInterval;
-function startKeekuSound(){
-  if(keekuInterval) return;
-  const sound=document.getElementById('keekuSound');
-  keekuInterval=setInterval(()=>{
-    sound.currentTime=0;
-    sound.play().catch(()=>{});
-  },5000);
 }
 </script>
 
